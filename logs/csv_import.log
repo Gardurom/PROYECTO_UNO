@@ -1,0 +1,15 @@
+2026-06-16 18:03:17 - === INICIO IMPORTACIÓN CSV ===
+2026-06-16 18:03:17 - Archivo: alumnos.csv
+2026-06-16 18:03:17 - Tipo: alumnos
+2026-06-16 18:03:17 - Encabezados: matricula, nombre, apellidos, email, generacion, grupo
+2026-06-16 18:03:17 - Éxito: 12 registros importados
+2026-06-16 18:07:38 - === INICIO IMPORTACIÓN CSV ===
+2026-06-16 18:07:38 - Archivo: Docentes.csv
+2026-06-16 18:07:38 - Tipo: docentes
+2026-06-16 18:07:38 - Encabezados: nombre, apellidos, email, telefono
+2026-06-16 18:07:38 - Éxito: 12 registros importados
+2026-06-16 18:08:19 - === INICIO IMPORTACIÓN CSV ===
+2026-06-16 18:08:19 - Archivo: Materias.csv
+2026-06-16 18:08:19 - Tipo: materias
+2026-06-16 18:08:19 - Encabezados: nombre, clave
+2026-06-16 18:08:19 - Éxito: 19 registros importados

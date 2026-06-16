@@ -1,0 +1,64 @@
+[09-Jun-2026 14:41:11 America/Mexico_City] PHP Warning:  require_once(D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html): Failed to open stream: No such file or directory in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 14:41:11 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html' (include_path='.;C:\php\pear') in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php:62
+Stack trace:
+#0 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 14:46:41 America/Mexico_City] PHP Warning:  require_once(D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html): Failed to open stream: No such file or directory in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 14:46:41 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html' (include_path='.;C:\php\pear') in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php:62
+Stack trace:
+#0 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 14:46:42 America/Mexico_City] PHP Warning:  require_once(D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html): Failed to open stream: No such file or directory in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 14:46:42 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html' (include_path='.;C:\php\pear') in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php:62
+Stack trace:
+#0 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 14:47:06 America/Mexico_City] PHP Warning:  require_once(D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html): Failed to open stream: No such file or directory in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 14:47:06 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html' (include_path='.;C:\php\pear') in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php:62
+Stack trace:
+#0 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 15:02:15 America/Mexico_City] PHP Warning:  require_once(D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html): Failed to open stream: No such file or directory in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 15:02:15 America/Mexico_City] PHP Fatal error:  Uncaught Error: Failed opening required 'D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO/errors/500.html' (include_path='.;C:\php\pear') in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php:62
+Stack trace:
+#0 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 62
+[09-Jun-2026 21:13:30 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active (started from D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 23) in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 18
+[09-Jun-2026 21:13:30 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active (started from D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 23) in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 19
+[09-Jun-2026 15:13:30 America/Mexico_City] PHP Fatal error:  Uncaught Error: Undefined constant "DB_VISITAS" in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php:13
+Stack trace:
+#0 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php(42): VisitasManager->__construct()
+#1 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php on line 13
+[09-Jun-2026 21:13:31 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active (started from D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 23) in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 18
+[09-Jun-2026 21:13:31 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active (started from D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 23) in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 19
+[09-Jun-2026 15:13:31 America/Mexico_City] PHP Fatal error:  Uncaught Error: Undefined constant "DB_VISITAS" in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php:13
+Stack trace:
+#0 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php(42): VisitasManager->__construct()
+#1 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php on line 13
+[09-Jun-2026 22:29:13 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active (started from D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 23) in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 18
+[09-Jun-2026 22:29:13 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active (started from D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 23) in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 19
+[09-Jun-2026 16:29:13 America/Mexico_City] PHP Fatal error:  Uncaught Error: Undefined constant "DB_VISITAS" in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php:13
+Stack trace:
+#0 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php(42): VisitasManager->__construct()
+#1 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php on line 13
+[09-Jun-2026 22:32:43 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 30
+[09-Jun-2026 22:32:43 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 31
+[09-Jun-2026 22:32:43 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 33
+[09-Jun-2026 22:32:43 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 36
+[09-Jun-2026 22:32:43 UTC] PHP Warning:  session_regenerate_id(): Session ID cannot be regenerated when there is no active session in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 42
+[09-Jun-2026 22:32:43 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 18
+[09-Jun-2026 22:32:43 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\config\config.php on line 19
+[09-Jun-2026 16:32:43 America/Mexico_City] PHP Fatal error:  Uncaught Error: Undefined constant "DB_VISITAS" in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php:13
+Stack trace:
+#0 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php(115): VisitasManager->__construct()
+#1 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php on line 13
+[09-Jun-2026 22:51:06 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 30
+[09-Jun-2026 22:51:06 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 31
+[09-Jun-2026 22:51:06 UTC] PHP Warning:  ini_set(): Session ini settings cannot be changed after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 33
+[09-Jun-2026 22:51:06 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 36
+[09-Jun-2026 22:51:06 UTC] PHP Warning:  session_regenerate_id(): Session ID cannot be regenerated when there is no active session in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 42
+[09-Jun-2026 16:51:06 America/Mexico_City] PHP Warning:  Cannot modify header information - headers already sent in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php on line 131

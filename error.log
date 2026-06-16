@@ -1,0 +1,14 @@
+[16-Jun-2026 11:11:40 America/Mexico_City] PHP Fatal error:  Uncaught Error: Call to private Database::__construct() from scope VisitasManager in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php:10
+Stack trace:
+#0 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\Bootstrap.php(140): VisitasManager->__construct()
+#1 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php(18): Bootstrap->run()
+#2 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php on line 10
+[16-Jun-2026 11:16:48 America/Mexico_City] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function VisitasManager::registrarVisita(), 0 passed in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\Bootstrap.php on line 141 and exactly 1 expected in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php:15
+Stack trace:
+#0 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\Bootstrap.php(141): VisitasManager->registrarVisita()
+#1 D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\index.php(18): Bootstrap->run()
+#2 {main}
+  thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php on line 15
+[16-Jun-2026 11:17:22 America/Mexico_City] Error al registrar visita: SQLSTATE[HY000]: General error: 1 no such table: visitas
+[16-Jun-2026 11:22:04 America/Mexico_City] Error al registrar visita: SQLSTATE[HY000]: General error: 1 no such table: visitas

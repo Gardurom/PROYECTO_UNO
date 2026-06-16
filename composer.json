@@ -1,0 +1,6 @@
+{
+    "require": {
+        "tecnickcom/tc-lib-barcode": "^2.7",
+        "phpoffice/phpspreadsheet": "^5.8"
+    }
+}

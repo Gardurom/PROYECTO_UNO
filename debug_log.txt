@@ -1,0 +1,43 @@
+[2026-06-09 22:32:43] === INICIO DEL SCRIPT ===
+[2026-06-09 22:32:43] Paso 1: Configurando errores
+[2026-06-09 22:32:43] Paso 2: Configurando sesión
+[2026-06-09 22:32:43] Paso 3: Sesión iniciada - ID: 
+[2026-06-09 22:32:43] Paso 4: ID de sesión regenerado
+[2026-06-09 22:32:43] Paso 5: Cargando archivos de configuración
+[2026-06-09 22:32:43]   ✓ config.php encontrado
+[2026-06-09 16:32:43]   ✓ config.php cargado
+[2026-06-09 16:32:43]   ✓ Database.php encontrado
+[2026-06-09 16:32:43]   ✓ Database.php cargado
+[2026-06-09 16:32:43]   ✓ Logger.php encontrado
+[2026-06-09 16:32:43]   ✓ Logger.php cargado
+[2026-06-09 16:32:43]   ✓ VisitasManager.php encontrado
+[2026-06-09 16:32:43]   ✓ VisitasManager.php cargado
+[2026-06-09 16:32:43] Paso 6: Configurando zona horaria
+[2026-06-09 16:32:43]   ✓ Zona horaria: America/Mexico_City
+[2026-06-09 16:32:43] Paso 7: Entrando al bloque try-catch
+[2026-06-09 16:32:43]   → Dentro del try
+[2026-06-09 16:32:43]   → Creando VisitasManager
+[2026-06-09 22:51:06] === INICIO DEL SCRIPT ===
+[2026-06-09 22:51:06] Paso 1: Configurando errores
+[2026-06-09 22:51:06] Paso 2: Configurando sesión
+[2026-06-09 22:51:06] Paso 3: Sesión iniciada - ID: 
+[2026-06-09 22:51:06] Paso 4: ID de sesión regenerado
+[2026-06-09 22:51:06] Paso 5: Cargando archivos de configuración
+[2026-06-09 22:51:06]   ✓ config.php encontrado
+[2026-06-09 22:51:06]   ✓ config.php cargado
+[2026-06-09 22:51:06]   ✓ Database.php encontrado
+[2026-06-09 22:51:06]   ✓ Database.php cargado
+[2026-06-09 22:51:06]   ✓ Logger.php encontrado
+[2026-06-09 22:51:06]   ✓ Logger.php cargado
+[2026-06-09 22:51:06]   ✓ VisitasManager.php encontrado
+[2026-06-09 22:51:06]   ✓ VisitasManager.php cargado
+[2026-06-09 22:51:06] Paso 6: Configurando zona horaria
+[2026-06-09 16:51:06]   ✓ Zona horaria: America/Mexico_City
+[2026-06-09 16:51:06] Paso 7: Entrando al bloque try-catch
+[2026-06-09 16:51:06]   → Dentro del try
+[2026-06-09 16:51:06]   → Creando VisitasManager
+[2026-06-09 16:51:06]   → VisitasManager creado
+[2026-06-09 16:51:06]   → Registrando visita
+[2026-06-09 16:51:06]   → Visita registrada
+[2026-06-09 16:51:06]   → Variables de sesión limpiadas
+[2026-06-09 16:51:06]   → Redirigiendo a: /login.php

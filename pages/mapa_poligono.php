@@ -12,7 +12,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa con Polígono - Estadísticas de Procedencia</title>
+    <title>Mapa con Polígonos - Estadísticas de Procedencia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
@@ -70,13 +70,21 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             position: absolute;
             bottom: 20px;
             left: 20px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.85);
             color: white;
-            padding: 8px 12px;
+            padding: 10px 15px;
             border-radius: 8px;
             font-size: 12px;
             z-index: 1000;
             pointer-events: none;
+            max-width: 300px;
+        }
+        .info-panel .color-box {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 5px;
         }
         .upload-area {
             border: 2px dashed #3498db;
@@ -134,11 +142,37 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             padding: 10px;
             display: none;
         }
+        .polygon-legend {
+            margin-top: 15px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .polygon-legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            font-size: 12px;
+        }
+        .polygon-legend-item .color-box {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            margin-right: 8px;
+            border: 1px solid #ddd;
+        }
+        .polygon-legend-item .count-badge {
+            margin-left: auto;
+            background: #e9ecef;
+            padding: 0 8px;
+            border-radius: 10px;
+            font-size: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
-        <h2>🗺️ Mapa con Polígono - Estadísticas de Procedencia</h2>
+        <h2>🗺️ Mapa con Polígonos - Estadísticas de Procedencia</h2>
         <a href="dashboard.php">← Volver</a>
     </div>
     
@@ -148,7 +182,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             <div class="upload-area" id="uploadArea">
                 <i class="fas fa-file-excel" style="font-size: 36px; color: #28a745;"></i>
                 <p class="mt-2 mb-0">Arrastra o haz clic para subir</p>
-                <small class="text-muted">(Columnas: id, id_becario, nombre_completo, id_generacion, id_grupo, procedencia)</small>
+                <small class="text-muted">(Columnas: id, nombre, procedencia)</small>
                 <input type="file" id="excelFile" accept=".xlsx,.xls" style="display: none;">
             </div>
             <div class="loading" id="loadingStats">
@@ -164,6 +198,26 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
                 <p class="text-muted small mt-2" id="totalRegistros"></p>
             </div>
             
+            <!-- Leyenda de polígonos -->
+            <div class="polygon-legend" id="polygonLegend">
+                <h6><i class="fas fa-map-marked-alt"></i> Polígonos</h6>
+                <div class="polygon-legend-item">
+                    <span class="color-box" style="background: #e74c3c;"></span>
+                    <span>Campo Militar 37-C (ANSP)</span>
+                    <span class="count-badge" id="countPoly1">0</span>
+                </div>
+                <div class="polygon-legend-item">
+                    <span class="color-box" style="background: #2ecc71;"></span>
+                    <span>Zona Militar (ZM)</span>
+                    <span class="count-badge" id="countPoly2">0</span>
+                </div>
+                <div class="polygon-legend-item">
+                    <span class="color-box" style="background: #3498db;"></span>
+                    <span>Base Aérea (BA)</span>
+                    <span class="count-badge" id="countPoly3">0</span>
+                </div>
+            </div>
+            
             <div class="mt-3">
                 <button class="btn btn-sm btn-outline-secondary w-100" id="resetStatsBtn" style="display: none;">
                     <i class="fas fa-trash-alt"></i> Limpiar estadísticas
@@ -174,9 +228,10 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         <div class="map-container">
             <div id="map"></div>
             <div class="info-panel">
-                <strong>📍 Polígono:</strong> Campo Militar No. 37-C (ANSP)<br>
-                <strong>📐 Vértices:</strong> 22 puntos<br>
-                <strong>🎨 Color:</strong> Rojo
+                <strong>📍 Polígonos:</strong><br>
+                <span class="color-box" style="background: #e74c3c;"></span> ANSP (Rojo)<br>
+                <span class="color-box" style="background: #2ecc71;"></span> ZM (Verde)<br>
+                <span class="color-box" style="background: #3498db;"></span> BA (Azul)
             </div>
         </div>
     </div>
@@ -188,67 +243,206 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     
     <script>
         // ==========================================
-        // 1. Inicializar mapa y polígono
+        // 1. DEFINICIÓN DE POLÍGONOS
         // ==========================================
-        var map = L.map('map').setView([19.810863, -99.275244], 15);
+        const POLYGONS = {
+            // Polígono 1: Campo Militar 37-C (ANSP) - Rojo
+            ansp: {
+                id: 'ansp',
+                name: 'Campo Militar 37-C (ANSP)',
+                shortName: 'ANSP',
+                color: '#e74c3c',
+                fillOpacity: 0.3,
+                weight: 3,
+                opacity: 0.8,
+                points: [
+                    [19.810863, -99.275244],
+                    [19.808436, -99.275143],
+                    [19.803392, -99.286768],
+                    [19.805834, -99.286732],
+                    [19.805576, -99.289089],
+                    [19.806701, -99.289152],
+                    [19.806608, -99.297555],
+                    [19.822904, -99.291651],
+                    [19.826316, -99.294222],
+                    [19.827213, -99.293689],
+                    [19.833485, -99.294299],
+                    [19.830866, -99.289813],
+                    [19.829474, -99.290309],
+                    [19.830190, -99.284456],
+                    [19.829884, -99.284175],
+                    [19.829727, -99.284283],
+                    [19.829067, -99.283745],
+                    [19.828530, -99.284247],
+                    [19.826611, -99.279610],
+                    [19.826963, -99.277792],
+                    [19.825132, -99.275876],
+                    [19.811196, -99.275251]
+                ]
+            },
+            
+            // Polígono 2: Zona Militar - Verde (ejemplo)
+            zm: {
+                id: 'zm',
+                name: 'Zona Militar',
+                shortName: 'ZM',
+                color: '#2ecc71',
+                fillOpacity: 0.25,
+                weight: 3,
+                opacity: 0.8,
+                points: [
+                    [19.780000, -99.250000],
+                    [19.780000, -99.230000],
+                    [19.800000, -99.230000],
+                    [19.800000, -99.250000],
+                    [19.780000, -99.250000]
+                ]
+            },
+            
+            // Polígono 3: Base Aérea - Azul (ejemplo)
+            ba: {
+                id: 'ba',
+                name: 'Base Aérea',
+                shortName: 'BA',
+                color: '#3498db',
+                fillOpacity: 0.25,
+                weight: 3,
+                opacity: 0.8,
+                points: [
+                    [19.850000, -99.280000],
+                    [19.850000, -99.260000],
+                    [19.870000, -99.260000],
+                    [19.870000, -99.280000],
+                    [19.850000, -99.280000]
+                ]
+            }
+        };
+
+        // ==========================================
+        // 2. Inicializar mapa
+        // ==========================================
+        var map = L.map('map').setView([19.82, -99.27], 13);
         
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; CartoDB',
             subdomains: 'abcd',
             maxZoom: 19
         }).addTo(map);
-        
-        // Coordenadas del polígono (Campo Militar No. 37-C)
-        var polygonPoints = [
-            [19.810863, -99.275244],
-            [19.808436, -99.275143],  
-            [19.803392, -99.286768],  
-            [19.805834, -99.286732],  
-            [19.805576, -99.289089],
-            [19.806701, -99.289152],
-            [19.806608, -99.297555],
-            [19.822904, -99.291651],
-            [19.826316, -99.294222],
-            [19.827213, -99.293689],
-            [19.833485, -99.294299],
-            [19.830866, -99.289813],
-            [19.829474, -99.290309],
-            [19.830190, -99.284456],
-            [19.829884, -99.284175],
-            [19.829727, -99.284283],
-            [19.829067, -99.283745],
-            [19.828530, -99.284247],
-            [19.826611, -99.279610],
-            [19.826963, -99.277792],
-            [19.825132, -99.275876],
-            [19.811196, -99.275251]
-        ];
-        
-        var polygon = L.polygon(polygonPoints, {
-            color: '#e74c3c',
-            weight: 3,
-            opacity: 0.8,
-            fillColor: '#e74c3c',
-            fillOpacity: 0.3
-        }).addTo(map);
-        
-        // Popup inicial (se actualizará después de cargar datos)
-        polygon.bindPopup(`
-            <b>🏛️ Campo Militar No. 37-C (San Miguel de los Jagüeyes)</b><br>
-            Academia Nacional de Seguridad Pública (ANSP)<br>
-            <i>Cargue un archivo Excel para ver estadísticas de procedencia.</i>
-        `);
-        
-        map.fitBounds(polygon.getBounds());
-        
+
         // ==========================================
-        // 2. Variables para almacenar estadísticas
+        // 3. Dibujar los polígonos
+        // ==========================================
+        var polygons = {};
+        var polygonData = {};
+
+        Object.keys(POLYGONS).forEach(function(key) {
+            var config = POLYGONS[key];
+            var polygon = L.polygon(config.points, {
+                color: config.color,
+                weight: config.weight,
+                opacity: config.opacity,
+                fillColor: config.color,
+                fillOpacity: config.fillOpacity,
+                className: 'polygon-' + key
+            }).addTo(map);
+            
+            // Popup inicial
+            polygon.bindPopup(`
+                <b>${config.name}</b><br>
+                <span style="color: ${config.color}; font-weight: bold;">●</span> ${config.shortName}<br>
+                <i>Cargue datos para ver estadísticas</i>
+            `);
+            
+            // Guardar referencia
+            polygons[key] = polygon;
+            polygonData[key] = {
+                config: config,
+                count: 0,
+                polygon: polygon
+            };
+            
+            // Eventos hover
+            polygon.on('mouseover', function(e) {
+                this.setStyle({
+                    fillOpacity: 0.6,
+                    weight: 4
+                });
+                this.bringToFront();
+            });
+            
+            polygon.on('mouseout', function(e) {
+                this.setStyle({
+                    fillOpacity: config.fillOpacity,
+                    weight: config.weight
+                });
+            });
+        });
+
+        // Ajustar vista para mostrar todos los polígonos
+        var group = L.featureGroup(Object.values(polygons));
+        map.fitBounds(group.getBounds());
+
+        // ==========================================
+        // 4. Variables para estadísticas
         // ==========================================
         let estadisticas = {};
         let totalRegistros = 0;
-        
+
         // ==========================================
-        // 3. Función para leer Excel y calcular estadísticas
+        // 5. Función para contar puntos en polígonos
+        // ==========================================
+        function contarPuntosEnPoligonos(rows, procedenciaKey) {
+            // Reiniciar conteos
+            Object.keys(polygonData).forEach(function(key) {
+                polygonData[key].count = 0;
+            });
+            
+            // Para cada fila, verificar en qué polígono cae
+            rows.forEach(function(row) {
+                // Obtener procedencia
+                let proc = row[procedenciaKey] ? row[procedenciaKey].toString().trim() : 'Sin Localidad';
+                
+                // Aquí podrías tener lógica para determinar en qué polígono cae
+                // Por ejemplo, basado en la procedencia o coordenadas
+                
+                // Ejemplo: Asignar basado en la procedencia
+                if (proc.toLowerCase().includes('ansp') || proc.toLowerCase().includes('campo militar')) {
+                    polygonData.ansp.count++;
+                } else if (proc.toLowerCase().includes('zm') || proc.toLowerCase().includes('zona militar')) {
+                    polygonData.zm.count++;
+                } else if (proc.toLowerCase().includes('ba') || proc.toLowerCase().includes('base aerea')) {
+                    polygonData.ba.count++;
+                }
+                // Si no coincide con ningún polígono, no se cuenta
+            });
+            
+            // Actualizar popups y leyenda
+            Object.keys(polygonData).forEach(function(key) {
+                var data = polygonData[key];
+                var config = data.config;
+                var count = data.count;
+                
+                // Actualizar popup
+                var popupContent = `
+                    <b>${config.name}</b><br>
+                    <span style="color: ${config.color}; font-weight: bold;">●</span> ${config.shortName}<br>
+                    <hr style="margin: 5px 0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold; color: ${config.color};">${count}</div>
+                        <div style="font-size: 12px; color: #7f8c8d;">personas en esta zona</div>
+                    </div>
+                `;
+                data.polygon.bindPopup(popupContent);
+            });
+            
+            // Actualizar leyenda
+            document.getElementById('countPoly1').textContent = polygonData.ansp.count;
+            document.getElementById('countPoly2').textContent = polygonData.zm.count;
+            document.getElementById('countPoly3').textContent = polygonData.ba.count;
+        }
+
+        // ==========================================
+        // 6. Función para leer Excel
         // ==========================================
         function procesarExcel(file) {
             const loadingDiv = document.getElementById('loadingStats');
@@ -256,53 +450,60 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             
             const reader = new FileReader();
             reader.onload = function(e) {
-                const data = new Uint8Array(e.target.result);
-                const workbook = XLSX.read(data, { type: 'array' });
-                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-                const rows = XLSX.utils.sheet_to_json(firstSheet);
-                
-                // Buscar la columna 'procedencia' (puede tener variantes)
-                let procedenciaKey = null;
-                const posiblesKeys = ['procedencia', 'Procedencia', 'PROCEDENCIA', 'estado', 'Estado'];
-                for (let key of posiblesKeys) {
-                    if (rows.length > 0 && rows[0].hasOwnProperty(key)) {
-                        procedenciaKey = key;
-                        break;
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const rows = XLSX.utils.sheet_to_json(firstSheet);
+                    
+                    // Buscar columna de procedencia
+                    let procedenciaKey = null;
+                    const posiblesKeys = ['procedencia', 'Procedencia', 'PROCEDENCIA', 'estado', 'Estado', 'zona'];
+                    
+                    for (let key of posiblesKeys) {
+                        if (rows.length > 0 && rows[0].hasOwnProperty(key)) {
+                            procedenciaKey = key;
+                            break;
+                        }
                     }
+                    
+                    if (!procedenciaKey && rows.length > 0) {
+                        loadingDiv.style.display = 'none';
+                        alert('No se encontró la columna "procedencia" en el archivo. Verifique los encabezados.');
+                        return;
+                    }
+                    
+                    // Contar frecuencias por procedencia
+                    const conteo = {};
+                    rows.forEach(row => {
+                        let proc = row[procedenciaKey] ? row[procedenciaKey].toString().trim() : 'Sin Localidad';
+                        if (proc === '') proc = 'Sin Localidad';
+                        conteo[proc] = (conteo[proc] || 0) + 1;
+                    });
+                    
+                    // Ordenar
+                    const sorted = Object.keys(conteo).sort().reduce((obj, key) => {
+                        obj[key] = conteo[key];
+                        return obj;
+                    }, {});
+                    
+                    estadisticas = sorted;
+                    totalRegistros = rows.length;
+                    
+                    // Mostrar estadísticas en sidebar
+                    mostrarEstadisticas();
+                    
+                    // Contar puntos en polígonos
+                    contarPuntosEnPoligonos(rows, procedenciaKey);
+                    
+                    // Mostrar botón limpiar
+                    document.getElementById('resetStatsBtn').style.display = 'block';
+                    
+                } catch (error) {
+                    alert('Error al procesar el archivo: ' + error.message);
                 }
-                
-                if (!procedenciaKey && rows.length > 0) {
-                    // Si no encuentra, mostrar error
-                    loadingDiv.style.display = 'none';
-                    alert('No se encontró la columna "procedencia" en el archivo. Verifique los encabezados.');
-                    return;
-                }
-                
-                // Contar frecuencias
-                const conteo = {};
-                rows.forEach(row => {
-                    let proc = row[procedenciaKey] ? row[procedenciaKey].toString().trim() : 'Sin Localidad';
-                    if (proc === '') proc = 'Sin Localidad';
-                    conteo[proc] = (conteo[proc] || 0) + 1;
-                });
-                
-                // Ordenar alfabéticamente (opcional)
-                const sorted = Object.keys(conteo).sort().reduce((obj, key) => {
-                    obj[key] = conteo[key];
-                    return obj;
-                }, {});
-                
-                estadisticas = sorted;
-                totalRegistros = rows.length;
-                
-                // Mostrar estadísticas en la sidebar
-                mostrarEstadisticas();
-                
-                // Actualizar el popup del polígono con las estadísticas
-                actualizarPopupPoligono();
                 
                 loadingDiv.style.display = 'none';
-                document.getElementById('resetStatsBtn').style.display = 'block';
             };
             
             reader.onerror = function() {
@@ -312,9 +513,9 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             
             reader.readAsArrayBuffer(file);
         }
-        
+
         // ==========================================
-        // 4. Mostrar tabla de estadísticas en sidebar
+        // 7. Mostrar estadísticas en sidebar
         // ==========================================
         function mostrarEstadisticas() {
             const container = document.getElementById('statsContainer');
@@ -341,66 +542,36 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             statsTableDiv.innerHTML = html;
             totalSpan.innerHTML = `Total registros: <strong>${totalRegistros}</strong>`;
         }
-        
+
         // ==========================================
-        // 5. Actualizar contenido del popup del polígono
-        // ==========================================
-        function actualizarPopupPoligono() {
-            if (Object.keys(estadisticas).length === 0) {
-                polygon.bindPopup(`
-                    <b>🏛️ Campo Militar No. 37-C (ANSP)</b><br>
-                    <i>Cargue un archivo Excel para ver estadísticas de procedencia.</i>
-                `);
-                return;
-            }
-            
-            // Crear HTML con las estadísticas (máximo 15 filas para no saturar el popup)
-            let filas = '';
-            let count = 0;
-            for (let [estado, cantidad] of Object.entries(estadisticas)) {
-                if (count < 15) {
-                    let porcentaje = ((cantidad / totalRegistros) * 100).toFixed(1);
-                    filas += `<tr><td style="font-size:11px;">${estado}</td><td style="text-align:center;">${cantidad}</td><td style="text-align:center;">${porcentaje}%</td></tr>`;
-                }
-                count++;
-            }
-            let restantes = Object.keys(estadisticas).length - 15;
-            let mensajeExtra = restantes > 0 ? `<tr><td colspan="3" style="font-size:10px; text-align:center;">... y ${restantes} más (ver panel lateral)</td></tr>` : '';
-            
-            let popupContent = `
-                <div style="min-width: 280px; max-height: 400px; overflow-y: auto;">
-                    <b>🏛️ Academia Nacional de Seguridad Pública (ANSP)</b><br>
-                    <small>Campo Militar No. 37-C</small>
-                    <hr style="margin:5px 0;">
-                    <b>📊 Procedencia de becarios</b>
-                    <table style="width:100%; font-size:12px; margin-top:5px;">
-                        <thead><tr><th>Estado</th><th>Cant</th><th>%</th></tr></thead>
-                        <tbody>
-                            ${filas}
-                            ${mensajeExtra}
-                        </tbody>
-                    </table>
-                    <hr style="margin:5px 0;">
-                    <div style="font-size:11px; text-align:center;">Total becarios: <b>${totalRegistros}</b></div>
-                </div>
-            `;
-            
-            polygon.bindPopup(popupContent);
-        }
-        
-        // ==========================================
-        // 6. Limpiar estadísticas
+        // 8. Limpiar estadísticas
         // ==========================================
         function limpiarEstadisticas() {
             estadisticas = {};
             totalRegistros = 0;
+            
+            // Resetear conteos
+            Object.keys(polygonData).forEach(function(key) {
+                polygonData[key].count = 0;
+                var config = polygonData[key].config;
+                polygonData[key].polygon.bindPopup(`
+                    <b>${config.name}</b><br>
+                    <span style="color: ${config.color}; font-weight: bold;">●</span> ${config.shortName}<br>
+                    <i>Cargue datos para ver estadísticas</i>
+                `);
+            });
+            
             document.getElementById('statsContainer').style.display = 'none';
             document.getElementById('resetStatsBtn').style.display = 'none';
-            actualizarPopupPoligono();
+            document.getElementById('countPoly1').textContent = '0';
+            document.getElementById('countPoly2').textContent = '0';
+            document.getElementById('countPoly3').textContent = '0';
+            
+            document.getElementById('excelFile').value = '';
         }
-        
+
         // ==========================================
-        // 7. Eventos de carga de archivo (drag & drop + clic)
+        // 9. Eventos de carga
         // ==========================================
         const uploadArea = document.getElementById('uploadArea');
         const excelFileInput = document.getElementById('excelFile');
@@ -439,7 +610,6 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         document.getElementById('resetStatsBtn').addEventListener('click', () => {
             if (confirm('¿Eliminar las estadísticas actuales?')) {
                 limpiarEstadisticas();
-                excelFileInput.value = '';
             }
         });
     </script>

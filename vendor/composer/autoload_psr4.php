@@ -10,8 +10,11 @@ return array(
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
+    'Endroid\\QrCode\\' => array($vendorDir . '/endroid/qr-code/src'),
+    'DASPRiD\\Enum\\' => array($vendorDir . '/dasprid/enum/src'),
     'Composer\\Pcre\\' => array($vendorDir . '/composer/pcre/src'),
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'Com\\Tecnick\\Color\\' => array($vendorDir . '/tecnickcom/tc-lib-color/src'),
     'Com\\Tecnick\\Barcode\\' => array($vendorDir . '/tecnickcom/tc-lib-barcode/src'),
+    'BaconQrCode\\' => array($vendorDir . '/bacon/bacon-qr-code/src'),
 );

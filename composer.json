@@ -1,6 +1,7 @@
 {
     "require": {
         "tecnickcom/tc-lib-barcode": "^2.7",
-        "phpoffice/phpspreadsheet": "^5.8"
+        "phpoffice/phpspreadsheet": "^5.8",
+        "endroid/qr-code": "^6.1"
     }
 }

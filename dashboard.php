@@ -56,7 +56,8 @@ $valid_pages = [
     'evaluaciones',
     'reportes',
     'carga_masiva',
-    'asignaciones'
+    'asignaciones',
+    'pension_adiestramiento'
 ];
 
 if (!in_array($page, $valid_pages)) $page = 'dashboard';
@@ -227,9 +228,11 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
         <div class="row">
             <div class="col-md-2 p-0 sidebar">
                 <div class="nav flex-column">
+                    <!-- seccion de paginas del menu -->
                     <a href="?page=dashboard" class="nav-link <?php echo $page == 'dashboard' ? 'active' : ''; ?>">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
+
 
                     <!-- Sección de Mapas (existente) -->
                     <div class="nav-item">
@@ -240,16 +243,22 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                         <i class="fas fa-map-marked-alt"></i> Mapa de Coordenadas
                     </a>
                     <a href="?page=mapa_poligono" class="nav-link <?php echo $page == 'mapa_poligono' ? 'active' : ''; ?>">
-                        <i class="fas fa-draw-polygon"></i> Mapa de Polígonos
+                        <i class="fas fa-draw-polygon"></i> Mapa Estado de Fuerza
                     </a>
-                    
+
                     <a href="?page=mapa_mexico" class="nav-link <?php echo $page == 'mapa_mexico' ? 'active' : ''; ?>">
                         <i class="fas fa-map"></i> Mapa de México
                     </a>
                     <a href="?page=generar_qr" class="nav-link <?php echo $page == 'generar_qr' ? 'active' : ''; ?>">
                         <i class="fas fa-qrcode"></i> Generar QR
                     </a>
-
+                    <!-- Fin de la sección de mapas -->
+                    <!-- pencion-adiestramientp -->
+                    <a href="?page=pension_adiestramiento" class="nav-link <?php echo $page == 'pension_adiestramiento' ? 'active' : ''; ?>">
+                        <i class="fas fa-file-invoice"></i> Pensión y Adiestramiento
+                    </a>
+                    <!-- fin de seccion pencion-adiestramiento -->
+                    <!-- Sección de Evaluación Docente -->
                     <!-- Nueva Sección: Evaluación Docente -->
                     <div class="nav-item">
                         <hr class="my-2">

@@ -12,3 +12,6 @@ Stack trace:
   thrown in D:\ejercicio_sspc_academia\PROYECTO_UNO\PROYECTO_UNO\includes\VisitasManager.php on line 15
 [16-Jun-2026 11:17:22 America/Mexico_City] Error al registrar visita: SQLSTATE[HY000]: General error: 1 no such table: visitas
 [16-Jun-2026 11:22:04 America/Mexico_City] Error al registrar visita: SQLSTATE[HY000]: General error: 1 no such table: visitas
+[16-Jun-2026 14:47:18 America/Mexico_City] Error al registrar visita: SQLSTATE[HY000]: General error: 1 no such table: visitas
+[22-Jun-2026 10:13:28 America/Mexico_City] Error al registrar visita: SQLSTATE[HY000]: General error: 1 no such table: visitas
+[23-Jun-2026 10:17:13 America/Mexico_City] Error al registrar visita: SQLSTATE[HY000]: General error: 1 no such table: visitas

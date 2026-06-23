@@ -14,56 +14,45 @@ $reporte = $_GET['reporte'] ?? 'general';
 
     <!-- Pestañas de reportes -->
     <ul class="nav nav-tabs mb-4" id="reporteTabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link <?php echo $reporte == 'general' ? 'active' : ''; ?>" onclick="cargarReporte('general')">
+        <li class="nav-item">
+            <a class="nav-link <?php echo $reporte == 'general' ? 'active' : ''; ?>" 
+               href="?page=reportes&reporte=general">
                 <i class="fas fa-chart-line"></i> General
-            </button>
+            </a>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link <?php echo $reporte == 'docentes' ? 'active' : ''; ?>" onclick="cargarReporte('docentes')">
+        <li class="nav-item">
+            <a class="nav-link <?php echo $reporte == 'docentes' ? 'active' : ''; ?>" 
+               href="?page=reportes&reporte=docentes">
                 <i class="fas fa-chalkboard-user"></i> Por Docente
-            </button>
+            </a>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link <?php echo $reporte == 'materias' ? 'active' : ''; ?>" onclick="cargarReporte('materias')">
+        <li class="nav-item">
+            <a class="nav-link <?php echo $reporte == 'materias' ? 'active' : ''; ?>" 
+               href="?page=reportes&reporte=materias">
                 <i class="fas fa-book"></i> Por Materia
-            </button>
+            </a>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link <?php echo $reporte == 'generaciones' ? 'active' : ''; ?>" onclick="cargarReporte('generaciones')">
+        <li class="nav-item">
+            <a class="nav-link <?php echo $reporte == 'generaciones' ? 'active' : ''; ?>" 
+               href="?page=reportes&reporte=generaciones">
                 <i class="fas fa-users"></i> Por Generación
-            </button>
+            </a>
         </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link <?php echo $reporte == 'periodos' ? 'active' : ''; ?>" onclick="cargarReporte('periodos')">
+        <li class="nav-item">
+            <a class="nav-link <?php echo $reporte == 'periodos' ? 'active' : ''; ?>" 
+               href="?page=reportes&reporte=periodos">
                 <i class="fas fa-calendar"></i> Por Periodo
-            </button>
+            </a>
         </li>
     </ul>
 
-    <div id="contenidoReporte">
-        <?php include "reportes/{$reporte}_reporte.php"; ?>
-    </div>
+    <!-- Contenido del reporte -->
+    <?php
+    $file = "reportes/{$reporte}_reporte.php";
+    if (file_exists($file)) {
+        include $file;
+    } else {
+        echo "<div class='alert alert-danger'>Reporte no encontrado</div>";
+    }
+    ?>
 </div>
-
-<script>
-function cargarReporte(tipo) {
-    // Actualizar URL sin recargar
-    const url = new URL(window.location);
-    url.searchParams.set('reporte', tipo);
-    window.history.pushState({}, '', url);
-    
-    // Cargar contenido
-    fetch(`reportes/${tipo}_reporte.php`)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('contenidoReporte').innerHTML = html;
-            
-            // Actualizar clases activas de las pestañas
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        });
-}
-</script>

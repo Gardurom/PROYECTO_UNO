@@ -20,12 +20,24 @@ class ComposerStaticInitd5ed540bdb8bd184c88ae0e4cb8f041f
         array (
             'Matrix\\' => 7,
         ),
+        'E' =>
+        array (
+            'Endroid\\QrCode\\' => 15,
+        ),
+        'D' =>
+        array (
+            'DASPRiD\\Enum\\' => 13,
+        ),
         'C' =>
         array (
             'Composer\\Pcre\\' => 14,
             'Complex\\' => 8,
             'Com\\Tecnick\\Color\\' => 18,
             'Com\\Tecnick\\Barcode\\' => 20,
+        ),
+        'B' =>
+        array (
+            'BaconQrCode\\' => 12,
         ),
     );
 
@@ -46,6 +58,14 @@ class ComposerStaticInitd5ed540bdb8bd184c88ae0e4cb8f041f
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
+        'Endroid\\QrCode\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/endroid/qr-code/src',
+        ),
+        'DASPRiD\\Enum\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/dasprid/enum/src',
+        ),
         'Composer\\Pcre\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
@@ -61,6 +81,10 @@ class ComposerStaticInitd5ed540bdb8bd184c88ae0e4cb8f041f
         'Com\\Tecnick\\Barcode\\' =>
         array (
             0 => __DIR__ . '/..' . '/tecnickcom/tc-lib-barcode/src',
+        ),
+        'BaconQrCode\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
     );
 

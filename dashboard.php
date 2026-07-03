@@ -46,6 +46,7 @@ $valid_pages = [
     'mapa_poligono',
     'mapa_mexico',      // Nueva página
     'generar_qr',
+    'qr_module',
     'perfil',
     'configuracion',
     'generaciones',
@@ -57,7 +58,9 @@ $valid_pages = [
     'reportes',
     'carga_masiva',
     'asignaciones',
-    'pension_adiestramiento'
+    'pension_adiestramiento',
+    'geocerca',
+    'reconocimiento_facial'
 ];
 
 if (!in_array($page, $valid_pages)) $page = 'dashboard';
@@ -232,8 +235,6 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                     <a href="?page=dashboard" class="nav-link <?php echo $page == 'dashboard' ? 'active' : ''; ?>">
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
-
-
                     <!-- Sección de Mapas (existente) -->
                     <div class="nav-item">
                         <hr class="my-2">
@@ -249,10 +250,25 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                     <a href="?page=mapa_mexico" class="nav-link <?php echo $page == 'mapa_mexico' ? 'active' : ''; ?>">
                         <i class="fas fa-map"></i> Mapa de México
                     </a>
+                    
+                    <a href="?page=geocerca" class="nav-link <?php echo $page == 'geocerca' ? 'active' : ''; ?>">
+                        <i class="fas fa-map-marked-alt"></i> Geocerca
+                    </a>
+                    <!-- Fin de la sección de mapas -->
+                    <!-- SECCION DE QR-->
+                    <a href="?page=qr_module" class="nav-link <?php echo $page == 'qr_module' ? 'active' : ''; ?>">
+                        <i class="fas fa-qrcode"></i> Módulo QR
+                    </a>
                     <a href="?page=generar_qr" class="nav-link <?php echo $page == 'generar_qr' ? 'active' : ''; ?>">
                         <i class="fas fa-qrcode"></i> Generar QR
                     </a>
-                    <!-- Fin de la sección de mapas -->
+                    <!-- FIN DE SECCION QR -->
+                   
+                    <!-- Sección de reconocimiento de cara-->
+                    <a href="?page=reconocimiento_facial" class="nav-link <?php echo $page == 'reconocimiento_facial' ? 'active' : ''; ?>">
+                        <i class="fas fa-user-shield"></i> Reconocimiento Facial
+                    </a>
+                    <!-- fin de Sección de reconocimiento de cara -->
                     <!-- pencion-adiestramientp -->
                     <a href="?page=pension_adiestramiento" class="nav-link <?php echo $page == 'pension_adiestramiento' ? 'active' : ''; ?>">
                         <i class="fas fa-file-invoice"></i> Pensión y Adiestramiento

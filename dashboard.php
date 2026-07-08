@@ -45,6 +45,7 @@ $valid_pages = [
     'mapa',
     'mapa_poligono',
     'mapa_mexico',      // Nueva página
+    'mapa_calor',       // Nueva página
     'generar_qr',
     'qr_module',
     'perfil',
@@ -236,12 +237,16 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                     <!-- Sección de Mapas (existente) -->
+                    
                     <div class="nav-item">
                         <hr class="my-2">
                         <small class="text-muted px-3">MAPAS</small>
                     </div>
-                    <a href="?page=mapa" class="nav-link <?php echo $page == 'mapa' ? 'active' : ''; ?>">
+                    <!-- <a href="?page=mapa" class="nav-link <?php echo $page == 'mapa' ? 'active' : ''; ?>">
                         <i class="fas fa-map-marked-alt"></i> Mapa de Coordenadas
+                    </a> -->
+                    <a href="?page=mapa_calor" class="nav-link <?php echo $page == 'mapa_calor' ? 'active' : ''; ?>">
+                        <i class="fas fa-fire"></i> Mapa de Calor
                     </a>
                     <a href="?page=mapa_poligono" class="nav-link <?php echo $page == 'mapa_poligono' ? 'active' : ''; ?>">
                         <i class="fas fa-draw-polygon"></i> Mapa Estado de Fuerza
@@ -250,10 +255,11 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                     <a href="?page=mapa_mexico" class="nav-link <?php echo $page == 'mapa_mexico' ? 'active' : ''; ?>">
                         <i class="fas fa-map"></i> Mapa de México
                     </a>
-                    
+
                     <a href="?page=geocerca" class="nav-link <?php echo $page == 'geocerca' ? 'active' : ''; ?>">
                         <i class="fas fa-map-marked-alt"></i> Geocerca
                     </a>
+                    
                     <!-- Fin de la sección de mapas -->
                     <!-- SECCION DE QR-->
                     <a href="?page=qr_module" class="nav-link <?php echo $page == 'qr_module' ? 'active' : ''; ?>">
@@ -263,7 +269,7 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                         <i class="fas fa-qrcode"></i> Generar QR
                     </a>
                     <!-- FIN DE SECCION QR -->
-                   
+
                     <!-- Sección de reconocimiento de cara-->
                     <a href="?page=reconocimiento_facial" class="nav-link <?php echo $page == 'reconocimiento_facial' ? 'active' : ''; ?>">
                         <i class="fas fa-user-shield"></i> Reconocimiento Facial

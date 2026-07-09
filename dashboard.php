@@ -237,13 +237,16 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                         <i class="fas fa-tachometer-alt"></i> Dashboard
                     </a>
                     <!-- Sección de Mapas (existente) -->
-                    
+
                     <div class="nav-item">
                         <hr class="my-2">
                         <small class="text-muted px-3">MAPAS</small>
                     </div>
                     <!-- <a href="?page=mapa" class="nav-link <?php echo $page == 'mapa' ? 'active' : ''; ?>">
                         <i class="fas fa-map-marked-alt"></i> Mapa de Coordenadas
+                    </a> -->
+                    <!-- <a href="?page=mapa_calor" class="nav-link <?php echo $page == 'mapa_calor' ? 'active' : ''; ?>">
+                        <i class="fas fa-fire"></i> Mapa de Calor
                     </a> -->
                     <a href="?page=mapa_calor" class="nav-link <?php echo $page == 'mapa_calor' ? 'active' : ''; ?>">
                         <i class="fas fa-fire"></i> Mapa de Calor
@@ -259,7 +262,7 @@ if (!in_array($page, $valid_pages)) $page = 'dashboard';
                     <a href="?page=geocerca" class="nav-link <?php echo $page == 'geocerca' ? 'active' : ''; ?>">
                         <i class="fas fa-map-marked-alt"></i> Geocerca
                     </a>
-                    
+
                     <!-- Fin de la sección de mapas -->
                     <!-- SECCION DE QR-->
                     <a href="?page=qr_module" class="nav-link <?php echo $page == 'qr_module' ? 'active' : ''; ?>">
